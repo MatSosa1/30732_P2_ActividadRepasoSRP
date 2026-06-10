@@ -5,6 +5,19 @@ interface User {
 
 // Esta clase viola el Principio de Responsabilidad Única (SRP)
 class UserBloc {
+    constructor(private userService: UserService, private mailer: Mailer) {}
+
+    loadUser( id: number ) {
+        this.userService.loadUser(id);
+    }
+
+    saveUser( user: User ) {
+        this.userService.saveUser(user);
+    }
+
+    notifyUser() {
+        this.mailer.notifyUser();
+    }
 }
 
 class SuscriptionBloc {
@@ -33,12 +46,13 @@ class Mailer {
     }
 }
 
-const userBloc = new UserBloc();
-const subscriptionBloc = new SuscriptionBloc();
 const userService = new UserService();
 const mailer = new Mailer();
 
-userService.loadUser(10);
-userService.saveUser({ id: 10, name: 'Fernando' });
-mailer.notifyUser();
-subscriptionBloc.onAddSubscription(1234);
+const userBloc = new UserBloc(userService, mailer);
+const suscriptionBloc = new SuscriptionBloc();
+
+userBloc.loadUser(10);
+userBloc.saveUser({ id: 10, name: 'Fernando' });
+userBloc.notifyUser();
+suscriptionBloc.onAddSubscription(1234);
