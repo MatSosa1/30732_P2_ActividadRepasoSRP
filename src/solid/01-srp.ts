@@ -20,17 +20,19 @@ class UserBloc {
         // Simula el envío de notificaciones
         console.log('Enviando correo a los usuarios');
     }
+}
 
+class SuscriptionBloc {
     onAddSubscription( subscriptionId: number ) {
         // Simula la gestión de suscripciones
         console.log('Agregando suscripción:', subscriptionId );
     }
-
 }
 
 const userBloc = new UserBloc();
+const subscriptionBloc = new SuscriptionBloc();
 
 userBloc.loadUser(10);
 userBloc.saveUser({ id: 10, name: 'Fernando' });
 userBloc.notifyUser();
-userBloc.onAddSubscription(1234);
+subscriptionBloc.onAddSubscription(1234);
